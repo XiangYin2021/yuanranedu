@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元然教育 | YuanRan EDU — 让每一篇文书，都值得被看见</title>
+<meta name="description" content="帝国理工博士团队，专注留学文书诊断与重写。25项能力评估体系，让你的申请文书真正脱颖而出。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --black: #0a0a0a;
+  --ink: #1d1d1f;
+  --text: #333336;
+  --secondary: #6e6e73;
+  --tertiary: #98989d;
+  --border: #e5e5e7;
+  --surface: #f5f5f7;
+  --white: #ffffff;
+  --accent: #1a5276;
+  --accent-light: #2980b9;
+  --accent-glow: rgba(26,82,118,0.08);
+  --gold: #8b7355;
+  --serif: 'Noto Serif SC', 'Georgia', serif;
+  --sans: 'DM Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  --display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+nav.scrolled {
+  box-shadow: 0 1px 12px rgba(0,0,0,0.04);
+}
+
+.nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.nav-brand-zh {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 2px;
+}
+
+.nav-brand-en {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tertiary);
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--secondary);
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.nav-cta {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white) !important;
+  background: var(--ink);
+  padding: 7px 20px;
+  border-radius: 980px;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--accent);
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--ink);
+  position: absolute;
+  left: 3px;
+  transition: all 0.3s;
+}
+
+.nav-toggle span:nth-child(1) { top: 7px; }
+.nav-toggle span:nth-child(2) { top: 12px; }
+.nav-toggle span:nth-child(3) { top: 17px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(26,82,118,0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139,115,85,0.03) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(26,82,118,0.2);
+  padding: 6px 20px;
+  border-radius: 980px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 300;
+  color: var(--secondary);
+  line-height: 1.8;
+  max-width: 560px;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 980px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-glow);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.2s;
+}
+
+.hero-scroll span {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--tertiary), transparent);
+  margin: 0 auto;
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ============================================================
+   STATS BAR
+   ============================================================ */
+.stats-bar {
+  background: var(--surface);
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 48px 40px;
+}
+
+.stats-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.stat-item {
+  text-align: center;
+  position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 10%;
+  height: 80%;
+  width: 0.5px;
+  background: var(--border);
+}
+
+.stat-number {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 400;
+}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+.about {
+  padding: 140px 40px;
+}
+
+.about-grid {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.about h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 28px;
+}
+
+.about-text p {
+  font-size: 16px;
+  color: var(--secondary);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-card {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+
+.credential {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.credential:last-child { margin-bottom: 0; }
+
+.credential-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.credential-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.credential-desc {
+  font-size: 13px;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   SERVICES SECTION
+   ============================================================ */
+.services {
+  padding: 140px 40px;
+  background: var(--ink);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(41,128,185,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.services .section-label {
+  color: var(--accent-light);
+}
+
+.services h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.services .section-sub {
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 16px;
+  margin-bottom: 64px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 40px 32px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.service-card:nth-child(1)::before { background: #22c55e; }
+.service-card:nth-child(2)::before { background: var(--accent-light); }
+.service-card:nth-child(3)::before { background: var(--gold); }
+
+.service-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-step {
+  font-family: var(--display);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.service-card:nth-child(1) .service-step { color: #22c55e; }
+.service-card:nth-child(2) .service-step { color: var(--accent-light); }
+.service-card:nth-child(3) .service-step { color: var(--gold); }
+
+.service-name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.service-price {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.service-card:nth-child(1) .service-price { color: #22c55e; }
+.service-card:nth-child(2) .service-price { color: var(--accent-light); }
+.service-card:nth-child(3) .service-price { color: var(--gold); }
+
+.service-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.service-features {
+  list-style: none;
+}
+
+.service-features li {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  padding: 6px 0;
+  border-top: 0.5px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-features li::before {
+  content: '✓';
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.service-card:nth-child(1) .service-features li::before { color: #22c55e; }
+.service-card:nth-child(2) .service-features li::before { color: var(--accent-light); }
+.service-card:nth-child(3) .service-features li::before { color: var(--gold); }
+
+.service-note {
+  margin-top: 24px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.service-card:nth-child(2) .service-note {
+  background: rgba(41,128,185,0.1);
+  color: var(--accent-light);
+}
+
+.service-card:nth-child(3) .service-note {
+  background: rgba(139,115,85,0.1);
+  color: var(--gold);
+}
+
+/* ============================================================
+   FRAMEWORK SECTION (25 Competencies)
+   ============================================================ */
+.framework {
+  padding: 140px 40px;
+  background: var(--white);
+}
+
+.framework h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.framework .section-sub {
+  text-align: center;
+  color: var(--secondary);
+  font-size: 16px;
+  max-width: 560px;
+  margin: 0 auto 64px;
+  line-height: 1.8;
+}
+
+.dims-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.dim-card {
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.dim-card:hover { transform: translateY(-4px); }
+
+.dim-card:nth-child(1) { background: #e8f2ff; }
+.dim-card:nth-child(2) { background: #fce8f3; }
+.dim-card:nth-child(3) { background: #e8f8ee; }
+.dim-card:nth-child(4) { background: #fdf4e0; }
+.dim-card:nth-child(5) { background: #f0e8fd; }
+
+.dim-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.dim-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.dim-abilities {
+  font-size: 12px;
+  color: var(--secondary);
+  line-height: 1.9;
+}
+
+/* ============================================================
+   PROCESS SECTION
+   ============================================================ */
+.process {
+  padding: 140px 40px;
+  background: var(--surface);
+}
+
+.process h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.process-steps {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--gold));
+}
+
+.process-step {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.step-num {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.step-content h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+  padding-top: 2px;
+}
+
+.step-content p {
+  font-size: 14px;
+  color: var(--secondary);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   CTA SECTION
+   ============================================================ */
+.cta {
+  padding: 140px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, var(--accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.cta h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cta-sub {
+  font-size: 17px;
+  color: var(--secondary);
+  max-width: 480px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+  position: relative;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  position: relative;
+}
+
+.contact-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px 36px;
+  text-align: center;
+  min-width: 180px;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover { transform: translateY(-3px); }
+
+.contact-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.contact-label {
+  font-size: 12px;
+  color: var(--tertiary);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.contact-value {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.footer-en {
+  font-family: var(--display);
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+footer p {
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+  
+  .dims-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dims-grid .dim-card:last-child {
+    grid-column: span 2;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .stat-number { font-size: 32px; }
+  
+  .contact-cards { gap: 16px; }
+  
+  .container, .hero, .about, .services, .framework, .process, .cta {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero { min-height: 90vh; padding-top: 100px; }
+  .hero h1 { font-size: 32px; }
+  .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+  .stat-item:not(:last-child)::after { display: none; }
+  .dims-grid { grid-template-columns: 1fr; }
+  .dims-grid .dim-card:last-child { grid-column: span 1; max-width: 100%; }
+  .hero-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="nav-brand-zh">元然教育</span>
+      <span class="nav-brand-en">YuanRan EDU</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#services">服务体系</a></li>
+      <li><a href="#framework">评估框架</a></li>
+      <li><a href="#process">服务流程</a></li>
+      <li><a href="#contact" class="nav-cta">免费诊断</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Imperial College London PhD Team</div>
+    <h1>让每一篇文书<br>都值得被<em>看见</em></h1>
+    <p class="hero-sub">帝国理工博士团队，独创25项能力评估体系<br>为你的留学申请文书提供专业诊断与深度重写</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">获取免费文书诊断</a>
+      <a href="#services" class="btn btn-secondary">了解服务详情</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- ============================================================
+     STATS BAR
+     ============================================================ -->
+<section class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number">25</div>
+      <div class="stat-label">项核心能力评估维度</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number">5</div>
+      <div class="stat-label">大能力维度全面覆盖</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number">IC</div>
+      <div class="stat-label">帝国理工博士背景</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-label">About Us</div>
+      <h2>源于顶尖学府的<br>专业判断力</h2>
+      <div class="about-text">
+        <p>元然教育由帝国理工学院（Imperial College London）计算机方向博士创立。我们深知，一篇优秀的留学文书不只是语言的堆砌，而是逻辑、策略与个人特质的深度融合。</p>
+        <p>基于多年的申请经验与学术洞察，我们独创了涵盖5大维度、25项核心能力的文书评估体系，能够系统化地诊断每一篇文书的优势与不足，给出精准的提升方案。</p>
+      </div>
+    </div>
+    <div class="about-visual reveal reveal-delay-2">
+      <div class="about-card">
+        <div class="credential">
+          <div class="credential-icon">🎓</div>
+          <div>
+            <div class="credential-title">帝国理工学院博士</div>
+            <div class="credential-desc">Imperial College London 计算机方向，世界排名Top 10</div>
+          </div>
+        </div>
+        <div class="credential">
+          <div class="credential-icon">📊</div>
+          <div>
+            <div class="credential-title">25项能力评估体系</div>
+            <div class="credential-desc">独创系统化评估框架，覆盖招生官关注的全部核心能力维度</div>
+          </div>
+        </div>
+        <div class="credential">
+          <div class="credential-icon">🔬</div>
+          <div>
+            <div class="credential-title">科研背景深厚</div>
+            <div class="credential-desc">拥有一线科研经历，深刻理解学术文书的内在逻辑与表达规范</div>
+          </div>
+        </div>
+        <div class="credential">
+          <div class="credential-icon">🎯</div>
+          <div>
+            <div class="credential-title">精准定位策略</div>
+            <div class="credential-desc">不只是写文书，更帮你找到最能打动招生官的个人叙事角度</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section class="services" id="services">
+  <div class="section-label">Our Services</div>
+  <h2 class="reveal">三步进阶，逐层深入</h2>
+  <p class="section-sub reveal reveal-delay-1">从免费诊断到深度重写，每一步都让你零风险地验证我们的专业度</p>
+  
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-step">01</div>
+      <div class="service-name">免费文书诊断</div>
+      <div class="service-price">免费</div>
+      <div class="service-desc">快速审阅你的文书，精准指出核心问题。用实力说话，让你亲身感受专业差距。</div>
+      <ul class="service-features">
+        <li>15-20分钟专业审阅</li>
+        <li>指出3-5个核心问题</li>
+        <li>初步修改方向建议</li>
+        <li>零成本，零风险</li>
+      </ul>
+    </div>
+    
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-step">02</div>
+      <div class="service-name">深度诊断报告</div>
+      <div class="service-price">¥800</div>
+      <div class="service-desc">基于25项能力评估框架，输出完整的诊断分析报告，包含逐段拆解和详细修改方案。</div>
+      <ul class="service-features">
+        <li>25项能力逐一评分</li>
+        <li>逻辑结构深度分析</li>
+        <li>逐段问题拆解与建议</li>
+        <li>专业PDF报告交付</li>
+      </ul>
+      <div class="service-note">可抵扣重写服务费用</div>
+    </div>
+    
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-step">03</div>
+      <div class="service-name">文书完整重写</div>
+      <div class="service-price">¥2,000</div>
+      <div class="service-desc">全面重构逻辑框架，重新提炼个人叙事，交付一篇真正能打动招生官的文书。</div>
+      <ul class="service-features">
+        <li>逻辑框架全面重构</li>
+        <li>核心能力精准展现</li>
+        <li>个人叙事深度提炼</li>
+        <li>不限轮次修改至满意</li>
+      </ul>
+      <div class="service-note">已购报告仅需补差价 ¥1,200</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAMEWORK
+     ============================================================ -->
+<section class="framework" id="framework">
+  <div class="section-label" style="color: var(--accent);">Assessment Framework</div>
+  <h2 class="reveal">25项能力评估体系</h2>
+  <p class="section-sub reveal reveal-delay-1">招生官真正关注的，从来不只是你做了什么——<br>而是你通过这些经历展现了哪些核心能力</p>
+  
+  <div class="dims-grid">
+    <div class="dim-card reveal">
+      <div class="dim-icon">🧠</div>
+      <div class="dim-name">学术与认知</div>
+      <div class="dim-abilities">快速学习 · 解决问题<br>分析能力 · 批判性思维<br>抽象建模 · 系统思维<br>跨学科 · 专业能力 · 创新</div>
+    </div>
+    <div class="dim-card reveal reveal-delay-1">
+      <div class="dim-icon">🤝</div>
+      <div class="dim-name">领导与协作</div>
+      <div class="dim-abilities">沟通表达<br>合作能力<br>领导力<br>影响力</div>
+    </div>
+    <div class="dim-card reveal reveal-delay-2">
+      <div class="dim-icon">🔥</div>
+      <div class="dim-name">内驱力与品质</div>
+      <div class="dim-abilities">主动性 · 好奇心<br>自驱能力<br>责任感<br>反思能力</div>
+    </div>
+    <div class="dim-card reveal reveal-delay-3">
+      <div class="dim-icon">⚙️</div>
+      <div class="dim-name">执行与管理</div>
+      <div class="dim-abilities">执行力<br>项目管理<br>时间管理<br>细节意识</div>
+    </div>
+    <div class="dim-card reveal reveal-delay-4">
+      <div class="dim-icon">🛡️</div>
+      <div class="dim-name">适应与韧性</div>
+      <div class="dim-abilities">抗压能力<br>适应能力<br>独立性</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section class="process" id="process">
+  <div class="section-label" style="color: var(--accent);">How It Works</div>
+  <h2 class="reveal">服务流程</h2>
+  
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>提交文书</h3>
+        <p>将你的 Personal Statement 或 SOP 发送给我们，同时告知目标院校和专业方向。</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>专业诊断</h3>
+        <p>我们基于25项能力框架，对文书进行逻辑结构、内容质量、能力覆盖度的全面深度分析。</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>交付报告</h3>
+        <p>收到一份专业的诊断报告，涵盖逐段分析、能力评分、问题定位和具体修改方向。</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>深度重写（可选）</h3>
+        <p>如需我们重写，将在诊断基础上全面重构逻辑和内容，反复打磨直至你满意为止。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA / CONTACT
+     ============================================================ -->
+<section class="cta" id="contact">
+  <div class="section-label" style="color: var(--accent);">Get Started</div>
+  <h2 class="reveal">让我们看看<br>你的文书还能更好吗</h2>
+  <p class="cta-sub reveal reveal-delay-1">首次诊断完全免费，没有任何附加条件<br>你唯一需要做的，就是把文书发给我们</p>
+  
+  <div class="hero-actions reveal reveal-delay-2" style="margin-bottom: 0;">
+    <a href="mailto:yuanranedu@outlook.com" class="btn btn-primary">发送邮件咨询</a>
+    <a href="#contact" class="btn btn-secondary">添加微信</a>
+  </div>
+  
+  <div class="contact-cards">
+    <div class="contact-card reveal">
+      <div class="contact-icon">💬</div>
+      <div class="contact-label">微信</div>
+      <div class="contact-value">YuanRanEDU</div>
+    </div>
+    <div class="contact-card reveal reveal-delay-1">
+      <div class="contact-icon">📧</div>
+      <div class="contact-label">邮箱</div>
+      <div class="contact-value">yuanranedu@outlook.com</div>
+    </div>
+    <div class="contact-card reveal reveal-delay-2">
+      <div class="contact-icon">📕</div>
+      <div class="contact-label">小红书</div>
+      <div class="contact-value">@元然教育</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-brand">元然教育</div>
+  <div class="footer-en">YUANRAN EDU</div>
+  <p>帝国理工博士团队 · 专注留学文书诊断与重写</p>
+  <p style="margin-top: 12px; font-size: 11px; opacity: 0.5;">© 2025 元然教育 YuanRan EDU. All rights reserved.</p>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
