@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>元然教育 · 文书免费诊断</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --cream-deep: #F5EBDA;
+    --green-dark: #1B4332;
+    --green-mid: #2D6A4F;
+    --green-light: #52B788;
+    --green-pale: #D8F3DC;
+    --text-primary: #1B4332;
+    --text-secondary: #5C6B63;
+    --text-muted: #8A9690;
+    --white: #FFFFFF;
+    --border: #E2D9CC;
+    --shadow-soft: 0 2px 20px rgba(27, 67, 50, 0.06);
+    --shadow-card: 0 4px 32px rgba(27, 67, 50, 0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--cream); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); z-index: 9999; }
+  .container { max-width: 480px; margin: 0 auto; padding: 0 24px; }
+  .header { padding: 48px 0 20px; text-align: center; animation: fadeDown 0.8s ease; }
+  .logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--green-dark); border-radius: 14px; margin-bottom: 20px; position: relative; overflow: hidden; }
+  .logo-mark::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%); }
+  .logo-mark span { font-family: 'Noto Serif SC', serif; font-size: 24px; font-weight: 700; color: var(--cream); position: relative; z-index: 1; }
+  .brand-name { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--green-dark); letter-spacing: 4px; margin-bottom: 8px; }
+  .brand-sub { font-size: 13px; color: var(--text-muted); letter-spacing: 1px; font-weight: 300; }
+  .hero { text-align: center; padding: 32px 0 36px; animation: fadeUp 0.8s ease 0.15s both; }
+  .hero h1 { font-family: 'Noto Serif SC', serif; font-size: 28px; font-weight: 700; line-height: 1.4; color: var(--green-dark); margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; position: relative; display: inline-block; }
+  .hero h1 em::after { content: ''; position: absolute; bottom: 2px; left: -2px; right: -2px; height: 8px; background: var(--green-pale); border-radius: 4px; z-index: -1; }
+  .hero p { font-size: 15px; line-height: 1.7; color: var(--text-secondary); max-width: 340px; margin: 0 auto; }
+  .badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding-bottom: 32px; animation: fadeUp 0.8s ease 0.3s both; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: var(--white); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; color: var(--text-secondary); font-weight: 400; }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; }
+  .form-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-card); padding: 32px 24px; margin-bottom: 24px; animation: fadeUp 0.8s ease 0.4s both; }
+  .form-section { margin-bottom: 24px; }
+  .form-section:last-child { margin-bottom: 0; }
+  .form-label { display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 10px; }
+  .form-label .optional { font-size: 12px; color: var(--text-muted); font-weight: 400; margin-left: 4px; }
+  .tab-switcher { display: flex; background: var(--cream); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 14px; }
+  .tab-btn { flex: 1; padding: 10px 0; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; border-radius: 8px; transition: all 0.3s ease; }
+  .tab-btn.active { background: var(--white); color: var(--green-dark); box-shadow: 0 1px 6px rgba(27, 67, 50, 0.08); }
+  .upload-zone { border: 2px dashed var(--border); border-radius: var(--radius-sm); padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+  .upload-zone:hover, .upload-zone.dragover { border-color: var(--green-light); background: rgba(82, 183, 136, 0.03); }
+  .upload-zone.has-file { border-color: var(--green-light); border-style: solid; background: rgba(82, 183, 136, 0.04); }
+  .upload-icon { width: 44px; height: 44px; margin: 0 auto 12px; background: var(--cream); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .upload-icon svg { width: 22px; height: 22px; stroke: var(--green-mid); }
+  .upload-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .upload-text strong { color: var(--green-mid); font-weight: 500; }
+  .upload-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .file-info { display: none; align-items: center; gap: 12px; padding: 4px 0; }
+  .file-info.show { display: flex; }
+  .file-icon { width: 40px; height: 40px; background: var(--green-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .file-icon svg { width: 18px; height: 18px; stroke: var(--green-dark); }
+  .file-detail { flex: 1; min-width: 0; }
+  .file-name { font-size: 14px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-size { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .file-remove { width: 32px; height: 32px; border: none; background: transparent; cursor: pointer; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.2s; flex-shrink: 0; }
+  .file-remove:hover { background: var(--cream); color: #c0392b; }
+  #fileInput { display: none; }
+  .paste-area { width: 100%; min-height: 160px; padding: 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; line-height: 1.7; color: var(--text-primary); background: var(--white); resize: vertical; transition: border-color 0.3s; outline: none; }
+  .paste-area::placeholder { color: var(--text-muted); }
+  .paste-area:focus { border-color: var(--green-light); }
+  .input-field { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; color: var(--text-primary); background: var(--white); transition: border-color 0.3s; outline: none; }
+  .input-field::placeholder { color: var(--text-muted); }
+  .input-field:focus { border-color: var(--green-light); }
+  .input-helper { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+  .submit-btn { width: 100%; padding: 16px; background: var(--green-dark); color: var(--cream); border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; letter-spacing: 1px; }
+  .submit-btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%); }
+  .submit-btn:hover { background: #153728; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(27, 67, 50, 0.2); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+  .promise { display: flex; align-items: flex-start; gap: 14px; padding: 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-soft); margin-bottom: 24px; animation: fadeUp 0.8s ease 0.55s both; }
+  .promise-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .promise-icon svg { width: 20px; height: 20px; stroke: var(--cream); fill: none; }
+  .promise-text h3 { font-size: 15px; font-weight: 600; color: var(--green-dark); margin-bottom: 4px; }
+  .promise-text p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .footer { text-align: center; padding: 16px 0 40px; animation: fadeUp 0.8s ease 0.65s both; }
+  .footer p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .success-state { display: none; text-align: center; padding: 40px 20px; }
+  .success-state.show { display: block; }
+  .success-check { width: 64px; height: 64px; background: var(--green-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; animation: scaleIn 0.5s ease; }
+  .success-check svg { width: 32px; height: 32px; stroke: var(--green-dark); }
+  .success-state h2 { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; }
+  .success-state p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+  .submit-btn .loading { display: none; }
+  .submit-btn.is-loading .loading { display: inline-flex; align-items: center; gap: 8px; }
+  .submit-btn.is-loading .btn-text { display: none; }
+  .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: var(--cream); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  @media (max-width: 380px) { .container { padding: 0 18px; } .hero h1 { font-size: 24px; } .form-card { padding: 24px 18px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="logo-mark"><span>元</span></div>
+    <div class="brand-name">元然教育</div>
+    <div class="brand-sub">YUANRAN EDUCATION</div>
+  </header>
+  <section class="hero">
+    <h1>留学文书<em>免费诊断</em></h1>
+    <p>上传你的文书，资深导师将从 52 项专业标准为你进行深度评估，24 小时内交付诊断报告</p>
+  </section>
+  <div class="badges">
+    <span class="badge"><span class="dot"></span>52 维度专业评审</span>
+    <span class="badge"><span class="dot"></span>帝国理工博士导师</span>
+    <span class="badge"><span class="dot"></span>24 小时交付</span>
+  </div>
+  <div class="form-card" id="formCard">
+    <form id="submitForm" action="https://formsubmit.co/x.yin20@imperial.ac.uk" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="【元然教育】新文书提交">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" id="redirectURL">
+      <input type="text" name="_honey" style="display:none">
+      <div class="form-section">
+        <label class="form-label">提交文书</label>
+        <div class="tab-switcher">
+          <button type="button" class="tab-btn active" data-tab="upload">上传文件</button>
+          <button type="button" class="tab-btn" data-tab="paste">粘贴文本</button>
+        </div>
+        <div class="panel active" id="panel-upload">
+          <div class="upload-zone" id="uploadZone">
+            <div class="upload-prompt">
+              <div class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="upload-text">点击或拖拽上传文书<br><strong>支持 .pdf 和 .docx 格式</strong></div>
+              <div class="upload-hint">文件大小不超过 5 MB</div>
+            </div>
+            <div class="file-info" id="fileInfo">
+              <div class="file-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="file-detail"><div class="file-name" id="fileName"></div><div class="file-size" id="fileSize"></div></div>
+              <button type="button" class="file-remove" id="fileRemove" title="移除文件"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+          </div>
+          <input type="file" id="fileInput" name="attachment" accept=".pdf,.docx,.doc">
+        </div>
+        <div class="panel" id="panel-paste">
+          <textarea class="paste-area" name="message" id="pasteText" placeholder="在此粘贴你的文书全文…"></textarea>
+        </div>
+      </div>
+      <div class="form-section">
+        <label class="form-label">你的邮箱 <span class="optional">（用于接收报告）</span></label>
+        <input type="email" class="input-field" name="email" id="emailInput" placeholder="example@email.com" required>
+        <div class="input-helper">我们将在 24 小时内将诊断报告发送至此邮箱</div>
+      </div>
+      <div class="form-section">
+        <label class="form-label">申请项目 <span class="optional">（选填）</span></label>
+        <input type="text" class="input-field" name="programme" placeholder="例：MSc Computing, Imperial College London">
+      </div>
+      <div class="form-section">
+        <button type="submit" class="submit-btn" id="submitBtn"><span class="btn-text">提交文书，获取免费诊断</span><span class="loading"><span class="spinner"></span> 提交中…</span></button>
+      </div>
+    </form>
+    <div class="success-state" id="successState">
+      <div class="success-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h2>提交成功</h2>
+      <p>你的文书已收到！<br>导师将在 24 小时内完成评估，<br>并将诊断报告发送至你的邮箱。</p>
+    </div>
+  </div>
+  <div class="promise">
+    <div class="promise-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div class="promise-text">
+      <h3>24 小时内交付诊断报告</h3>
+      <p>不同于 AI 自动生成的模糊反馈，每一份报告均由帝国理工博士导师基于 52 项专业标准逐一评审，确保每条建议真实、可执行。</p>
+    </div>
+  </div>
+  <footer class="footer"><p>© 2025 元然教育 YuanRan Education<br>专注英国及国际硕博申请</p></footer>
+</div>
+<script>
+  document.getElementById('redirectURL').value = window.location.href + '?success=true';
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = { upload: document.getElementById('panel-upload'), paste: document.getElementById('panel-paste') };
+  tabBtns.forEach(btn => { btn.addEventListener('click', () => { tabBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); Object.values(panels).forEach(p => p.classList.remove('active')); panels[btn.dataset.tab].classList.add('active'); }); });
+  const uploadZone = document.getElementById('uploadZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileInfo = document.getElementById('fileInfo');
+  const fileName = document.getElementById('fileName');
+  const fileSize = document.getElementById('fileSize');
+  const fileRemove = document.getElementById('fileRemove');
+  const uploadPrompt = uploadZone.querySelector('.upload-prompt');
+  uploadZone.addEventListener('click', (e) => { if (e.target.closest('.file-remove')) return; fileInput.click(); });
+  uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => { uploadZone.classList.remove('dragover'); });
+  uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); const file = e.dataTransfer.files[0]; if (file) handleFile(file); });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+  function handleFile(file) {
+    const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'];
+    if (!validTypes.includes(file.type) && !file.name.match(/\.(pdf|docx|doc)$/i)) { alert('请上传 PDF 或 Word 文档'); return; }
+    if (file.size > 5 * 1024 * 1024) { alert('文件大小不能超过 5 MB'); return; }
+    const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files;
+    fileName.textContent = file.name; fileSize.textContent = formatSize(file.size);
+    uploadPrompt.style.display = 'none'; fileInfo.classList.add('show'); uploadZone.classList.add('has-file');
+  }
+  fileRemove.addEventListener('click', (e) => { e.stopPropagation(); fileInput.value = ''; uploadPrompt.style.display = ''; fileInfo.classList.remove('show'); uploadZone.classList.remove('has-file'); });
+  function formatSize(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'; return (bytes / (1024 * 1024)).toFixed(1) + ' MB'; }
+  const form = document.getElementById('submitForm');
+  const submitBtn = document.getElementById('submitBtn');
+  form.addEventListener('submit', (e) => {
+    const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+    const hasFile = fileInput.files.length > 0;
+    const hasText = document.getElementById('pasteText').value.trim().length > 0;
+    if (activeTab === 'upload' && !hasFile) { e.preventDefault(); alert('请上传你的文书文件'); return; }
+    if (activeTab === 'paste' && !hasText) { e.preventDefault(); alert('请粘贴你的文书内容'); return; }
+    if (activeTab === 'paste') { fileInput.value = ''; }
+    submitBtn.classList.add('is-loading'); submitBtn.disabled = true;
+  });
+  if (window.location.search.includes('success=true')) { document.getElementById('submitForm').style.display = 'none'; document.getElementById('successState').classList.add('show'); history.replaceState(null, '', window.location.pathname); }
+</script>
+</body>
+</html>
