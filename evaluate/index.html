@@ -29,9 +29,8 @@
   body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); z-index: 9999; }
   .container { max-width: 480px; margin: 0 auto; padding: 0 24px; }
   .header { padding: 48px 0 20px; text-align: center; animation: fadeDown 0.8s ease; }
-  .logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--green-dark); border-radius: 14px; margin-bottom: 20px; position: relative; overflow: hidden; }
-  .logo-mark::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%); }
-  .logo-mark span { font-family: 'Noto Serif SC', serif; font-size: 24px; font-weight: 700; color: var(--cream); position: relative; z-index: 1; }
+  .logo-mark { display: inline-block; width: 56px; height: 56px; margin-bottom: 20px; }
+  .logo-mark img { width: 100%; height: 100%; border-radius: 14px; object-fit: cover; }
   .brand-name { font-family: 'Noto Serif SC', serif; font-size: 22px; font-weight: 700; color: var(--green-dark); letter-spacing: 4px; margin-bottom: 8px; }
   .brand-sub { font-size: 13px; color: var(--text-muted); letter-spacing: 1px; font-weight: 300; }
   .hero { text-align: center; padding: 32px 0 36px; animation: fadeUp 0.8s ease 0.15s both; }
@@ -39,6 +38,7 @@
   .hero h1 em { font-style: normal; position: relative; display: inline-block; }
   .hero h1 em::after { content: ''; position: absolute; bottom: 2px; left: -2px; right: -2px; height: 8px; background: var(--green-pale); border-radius: 4px; z-index: -1; }
   .hero p { font-size: 15px; line-height: 1.7; color: var(--text-secondary); max-width: 340px; margin: 0 auto; }
+  .hero p.hero-limit { display: inline-block; background: var(--green-dark); color: #FDF6EC; font-size: 13px; font-weight: 600; padding: 4px 16px; border-radius: 20px; margin-bottom: 12px; letter-spacing: 1px; }
   .badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding-bottom: 32px; animation: fadeUp 0.8s ease 0.3s both; }
   .badge { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: var(--white); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; color: var(--text-secondary); font-weight: 400; }
   .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; }
@@ -109,16 +109,17 @@
 <body>
 <div class="container">
   <header class="header">
-    <div class="logo-mark"><span>元</span></div>
+    <div class="logo-mark"><img src="../logo.png" alt="元然教育"></div>
     <div class="brand-name">元然教育</div>
     <div class="brand-sub">YUANRAN EDUCATION</div>
   </header>
   <section class="hero">
     <h1>留学文书<em>免费诊断</em></h1>
-    <p>上传你的文书，资深导师将从 52 项专业标准为你进行深度评估，24 小时内交付诊断报告</p>
+    <p class="hero-limit">限前 100 名</p>
+    <p>上传你的文书，帝国理工博士团队将从 28 项专业标准为你进行深度评估，24 小时内交付诊断报告</p>
   </section>
   <div class="badges">
-    <span class="badge"><span class="dot"></span>52 维度专业评审</span>
+    <span class="badge"><span class="dot"></span>28 维度专业评审</span>
     <span class="badge"><span class="dot"></span>帝国理工博士导师</span>
     <span class="badge"><span class="dot"></span>24 小时交付</span>
   </div>
@@ -162,7 +163,7 @@
         <div class="input-helper">我们将在 24 小时内将诊断报告发送至此邮箱</div>
       </div>
       <div class="form-section">
-        <label class="form-label">申请项目 <span class="optional">（选填）</span></label>
+        <label class="form-label">申请项目及院校 <span class="optional">（选填）</span></label>
         <input type="text" class="input-field" name="programme" placeholder="例：MSc Computing, Imperial College London">
       </div>
       <div class="form-section">
@@ -179,10 +180,10 @@
     <div class="promise-icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
     <div class="promise-text">
       <h3>24 小时内交付诊断报告</h3>
-      <p>不同于 AI 自动生成的模糊反馈，每一份报告均由帝国理工博士导师基于 52 项专业标准逐一评审，确保每条建议真实、可执行。</p>
+      <p>不同于 AI 自动生成的模糊反馈，每一份报告均由帝国理工博士导师基于 28 项专业标准逐一评审，确保每条建议真实、可执行。</p>
     </div>
   </div>
-  <footer class="footer"><p>© 2025 元然教育 YuanRan Education<br>专注英国及国际硕博申请</p></footer>
+  <footer class="footer"><p>© 2026 元然教育 YuanRan Education</p></footer>
 </div>
 <script>
   document.getElementById('redirectURL').value = window.location.href + '?success=true';
